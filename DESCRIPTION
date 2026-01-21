@@ -1,0 +1,22 @@
+Package: mortSOA
+Title: Obtain data from Mortality and Other Rate Tables (mort.soa.org)
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+Description: The Society of Actuaries provides an extensive online database 
+    called Mortality and Other Rate Tables (MORT) at https://mort.soa.org/. 
+    This database contains mortality, lapse, and valuation tables that cover a 
+    variety of product types and countries. Users of the database can download
+    any tables in Excel, CSV, or XML formats. This package provides convenience 
+    functions that read XML formats from the database and return R objects.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports: 
+    cli,
+    dplyr,
+    httr2,
+    purrr,
+    tidyr,
+    xml2
