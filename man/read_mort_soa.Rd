@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_mort_soa.R
 \name{read_mort_soa}
 \alias{read_mort_soa}
-\title{Read data from mort.soa.org}
+\title{Read data from mort.soa.org and return a list of data frames}
 \usage{
 read_mort_soa(table_id)
 }
@@ -11,11 +11,12 @@ read_mort_soa(table_id)
 <mort.soa.org>}
 }
 \value{
-A list containing any tables associated with \code{table_id} with
-metadata attributes described above.
+A list containing any tables associated with \code{table_id} plus the
+metadata attributes described above. Individual tables are data frames
+(tibbles).
 }
 \description{
-Read data from mort.soa.org
+Read data from mort.soa.org and return a list of data frames
 }
 \details{
 This function first checks if the provided \code{table_id} is available on
@@ -31,14 +32,21 @@ returned. The list contains several attributes that can be queried using
 \item \code{usage} - Intended usage
 \item \code{layout} - Table layout
 \item \code{nation} - Nation of origin
-\item \code{sub_descriptions} - A vector containing detailed descriptions for each
-sub-table underneath \code{table_id}
+\item \code{sub_descriptions} - A character vector containing detailed descriptions
+for each sub-table underneath \code{table_id}
 }
-\subsection{Table layout values}{
+
+Most tables have either an "Aggregate" or "Select and Ultimate" structure.
 \itemize{
-\item TODO
+\item Aggregate structures contains a single table with one dimension (usually
+Age).
+\item Select and Ultimate structures contain two tables. The first table contains
+two dimensions for Age and Duration. The second table contains a single
+dimension for Age.
 }
-}
+
+For convenience, any two-dimensional tables are pivotted longer into a "tidy"
+format with 3 columns: Age, Duration, and the mortality (or other) rate.
 }
 \examples{
 if (interactive()) {

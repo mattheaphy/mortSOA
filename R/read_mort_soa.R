@@ -1,6 +1,6 @@
-#' Read data from mort.soa.org
 #'
 #'
+#' Read data from mort.soa.org and return a list of data frames
 #'
 #' @details
 #' This function first checks if the provided `table_id` is available on
@@ -16,13 +16,19 @@
 #' - `usage` - Intended usage
 #' - `layout` - Table layout
 #' - `nation` - Nation of origin
-#' - `sub_descriptions` - A vector containing detailed descriptions for each
-#'   sub-table underneath `table_id`
+#' - `sub_descriptions` - A character vector containing detailed descriptions
+#'   for each sub-table underneath `table_id`
 #'
-#' ## Table layout values
+#' Most tables have either an "Aggregate" or "Select and Ultimate" structure.
 #'
-#' - TODO
+#' - Aggregate structures contains a single table with one dimension (usually
+#'   Age).
+#' - Select and Ultimate structures contain two tables. The first table contains
+#'   two dimensions for Age and Duration. The second table contains a single
+#'   dimension for Age.
 #'
+#' For convenience, any two-dimensional tables are pivotted longer into a "tidy"
+#' format with 3 columns: Age, Duration, and the mortality (or other) rate.
 #'
 #' @param table_id An identification number for a mortality table on
 #' <mort.soa.org>
@@ -36,8 +42,9 @@
 #'   read_mort_soa(2586)
 #' }
 #'
-#' @returns A list containing any tables associated with `table_id` with
-#'   metadata attributes described above.
+#' @returns A list containing any tables associated with `table_id` plus the
+#'   metadata attributes described above. Individual tables are data frames
+#'   (tibbles).
 #' @export
 read_mort_soa <- function(table_id) {
   xml <- check_get_xml(table_id)
@@ -93,20 +100,37 @@ get_meta <- \(x, meta) {
 }
 
 xml_to_df <- function(xml) {
-  # Table child item 1 = meta data
+  # # Table child item 1 = meta data
   meta <- xml2::xml_child(xml, 1)
   # Get axis definitions
   axis_def <- xml2::xml_find_all(meta, "AxisDef") |> xml2::as_list()
+
+  xtab <- xml2::xml_child(xml, 2) |> xml2::xml_children()
+  # First check how many axes are present. A 1D table will have a single axis
+  #   and a 2D table will have a nested structure
   axes <- list()
-  for (x in axis_def) {
-    axes[[x$AxisName[[1]]]] <- seq.int(
-      as.numeric(x$MinScaleValue[[1]]),
-      as.numeric(x$MaxScaleValue[[1]]),
-      by = as.numeric(x$Increment[[1]])
-    )
+
+  if (length(xtab) == 1L) {
+    axes[[axis_def[[1]]$AxisName[[1]]]] <- xtab |>
+      xml2::xml_find_all(".//Y") |>
+      xml2::xml_attr("t") |>
+      as.numeric()
+  } else {
+    # 2D table
+    # Outer
+    axes[[axis_def[[1]]$AxisName[[1]]]] <- xtab |>
+      xml2::xml_attr("t") |>
+      as.numeric()
+    # Inner - note that we only need to grab the first element to avoid
+    #   repeating inner axis value records
+    axes[[axis_def[[2]]$AxisName[[1]]]] <- xtab[[1]] |>
+      xml2::xml_find_all(".//Y") |>
+      xml2::xml_attr("t") |>
+      as.numeric()
   }
 
-  qx <- xml2::xml_child(xml, 2) |>
+  # All rates
+  qx <- xtab |>
     xml2::xml_find_all(".//Y") |>
     xml2::xml_double()
 
