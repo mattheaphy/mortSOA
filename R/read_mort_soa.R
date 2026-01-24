@@ -30,10 +30,21 @@ read_mort_soa <- function(table_id) {
   )
 
   # Child item 1 = meta data
-  name <- xml |>
-    xml2::xml_child(1) |>
-    xml2::xml_find_all(".//TableName") |>
-    xml2::xml_text()
+  content_meta <- xml |> xml2::xml_child(1)
+  get_meta <- \(x, meta) {
+    x |>
+      purrr::set_names() |>
+      purrr::map(\(y) {
+        xml2::xml_find_all(meta, paste0(".//", y)) |> xml2::xml_text()
+      })
+  }
+  content_meta <- c(
+    "TableName",
+    "TableIdentity",
+    "TableDescription",
+    "ContentType"
+  ) |>
+    get_meta(meta = content_meta)
 
   xml_to_df <- function(xml) {
     # Table child item 1 = meta data
@@ -58,14 +69,14 @@ read_mort_soa <- function(table_id) {
       dplyr::as_tibble() |>
       dplyr::mutate(qx = qx)
 
-    attr(dat, "description") <- meta |>
-      xml2::xml_find_all(".//TableDescription") |>
-      xml2::xml_text()
+    attr(dat, "table_meta") <- c("TableDescription", "Nation") |>
+      get_meta(meta = meta)
+
     dat
   }
 
   tbls <- xml2::xml_find_all(xml, "Table")
   res <- purrr::map(tbls, xml_to_df)
-  attr(res, "name") <- name
+  attr(res, "content_meta") <- content_meta
   res
 }
