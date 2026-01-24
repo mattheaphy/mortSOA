@@ -18,6 +18,7 @@ Imports:
     dplyr,
     httr2,
     purrr,
+    rlang,
     tidyr,
     xml2
 Depends: 

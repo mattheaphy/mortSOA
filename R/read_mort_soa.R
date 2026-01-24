@@ -42,6 +42,7 @@
 #'   read_mort_soa(2586)
 #' }
 #'
+#' @seealso [filter_inventory()]
 #' @returns A list containing any tables associated with `table_id` plus the
 #'   metadata attributes described above. Individual tables are data frames
 #'   (tibbles).

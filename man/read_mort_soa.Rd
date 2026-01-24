@@ -59,3 +59,6 @@ if (interactive()) {
 Society of Actuaries Mortality and Other Rate Tables
 \url{https://mort.soa.org}
 }
+\seealso{
+\code{\link[=filter_inventory]{filter_inventory()}}
+}
