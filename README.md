@@ -1,0 +1,184 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# mortSOA
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The Society of Actuaries provides an extensive online database called
+Mortality and Other Rate Tables (MORT) at <https://mort.soa.org/>. This
+database contains mortality, lapse, and valuation tables that cover a
+variety of product types and countries. Users of the database can
+download any tables in Excel, CSV, or XML formats. This package provides
+convenience functions that read XML formats from the database and return
+R objects.
+
+## Installation
+
+You can install the development version of mortSOA from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("mattheaphy/mortSOA")
+```
+
+## Inventory of tables
+
+The `mortSOA` package comes with a data frame that contains an inventory
+of available tables on `mort.soa.org`. This data set is not
+automatically refreshed and was last udpated on 2026-01-24.
+
+``` r
+library(mortSOA)
+library(tibble)
+
+table_inventory
+#> # A tibble: 3,034 × 6
+#>    table_id name                                 description layout usage nation
+#>       <int> <chr>                                <chr>       <chr>  <chr> <chr> 
+#>  1        1 1941 CSO Basic Table, ANB            "1941 Comm… Aggre… CSO … Unite…
+#>  2        2 1941 CSO Experience Table, ANB       "1941 Comm… Aggre… CSO … Unite…
+#>  3        3 1941 CSO Table with Davis’ Extensio… "1941 Comm… Aggre… CSO … Unite…
+#>  4        4 1941 CSO Table with Davis’ Extensio… "1941 Comm… Aggre… CSO … Unite…
+#>  5        5 1958 CSO - Male, ANB                 "1958 Comm… Aggre… CSO … Unite…
+#>  6        6 1958 CSO- Female, ANB                "1958 Comm… Aggre… CSO … Unite…
+#>  7        7 1958 CSO -  Male, ALB                "1958 Comm… Aggre… CSO … Unite…
+#>  8        8 1958 CSO - Female, ALB               "1958 Comm… Aggre… CSO … Unite…
+#>  9        9 1958 CET - Male, ANB                 "1958 Comm… Aggre… CSO … Unite…
+#> 10       10 1958 CET - Female, ANB               "1958 Comm… Aggre… CSO … Unite…
+#> # ℹ 3,024 more rows
+```
+
+The table inventory is provided as a quick reference to look up table
+identification numbers used by `mort.soa.org`. The `filter_inventory()`
+function is provided to assist with searching the inventory.
+
+Let’s assume that we are interested in the 2012 IAM Basic table.
+
+``` r
+filter_inventory("2012", "IAM Basic")
+#> # A tibble: 2 × 6
+#>   table_id name                               description    layout usage nation
+#>      <int> <chr>                              <chr>          <chr>  <chr> <chr> 
+#> 1     2581 2012 IAM Basic Table – Male, ANB   2012 Individu… Aggre… Annu… Unite…
+#> 2     2582 2012 IAM Basic Table – Female, ANB 2012 Individu… Aggre… Annu… Unite…
+```
+
+## Reading tables
+
+The `read_mort_soa()` function is used to obtain data from
+`mort.soa.org`. This function requires a table identification number
+(`table_id`). Continuing with the prior example, let’s look up table
+2582, the 2012 IAM Basic Tables for female lives.
+
+``` r
+iam_2012_f <- read_mort_soa(2582)
+iam_2012_f[[1]]
+#> # A tibble: 121 × 2
+#>      age       qx
+#>    <dbl>    <dbl>
+#>  1     0 0.00180 
+#>  2     1 0.00045 
+#>  3     2 0.000287
+#>  4     3 0.000199
+#>  5     4 0.000152
+#>  6     5 0.000139
+#>  7     6 0.00013 
+#>  8     7 0.000122
+#>  9     8 0.000105
+#> 10     9 0.000098
+#> # ℹ 111 more rows
+```
+
+This function returns a list of any tables (converted to data frames)
+found under the given `table_id`. Since 2012 IAM basic is an ultimate
+table there is only one data frame in the list.
+
+The list includes additional metadata attributes that can be inspected
+using the `attr()` or `attributes()` functions.
+
+``` r
+attributes(iam_2012_f)
+#> $name
+#> [1] "2012 IAM Basic Table – Female, ANB"
+#> 
+#> $table_id
+#> [1] "2582"
+#> 
+#> $description
+#> [1] "2012 Individual Annuity Mortality Basic Table – Female. Basis: Age Nearest Birthday. Minimum Age: 0. Maximum Age: 120"
+#> 
+#> $usage
+#> [1] "Annuitant Mortality"
+#> 
+#> $layout
+#> [1] "Aggregate"
+#> 
+#> $nation
+#> [1] "United States of America"
+#> 
+#> $sub_descriptions
+#> [1] "2012 Individual Annuity Mortality Basic Table – Female. Basis: Age Nearest Birthday. Minimum Age: 0. Maximum Age: 120"
+```
+
+## Select and ultimate tables
+
+Many tables in `mort.soa.org` have a select and ultimate structure. For
+these tables, the list returned by `read_mort_soa()` will include two
+elements. The first element is a two-dimensional table with mortality
+rates varying by issue age and policy duration. The second element is an
+ultimate mortality table varying by attained age only.
+
+Example using the 2015 VBT Non-Smoker ALB table (`table_id = 3269`)
+
+``` r
+vbt <- read_mort_soa(3269)
+```
+
+**Select table**
+
+``` r
+vbt[[1]]
+#> # A tibble: 1,950 × 3
+#>      age duration      qx
+#>    <dbl>    <dbl>   <dbl>
+#>  1    18        1 0.00066
+#>  2    18        2 0.00069
+#>  3    18        3 0.00071
+#>  4    18        4 0.00071
+#>  5    18        5 0.00069
+#>  6    18        6 0.00069
+#>  7    18        7 0.00068
+#>  8    18        8 0.00066
+#>  9    18        9 0.00057
+#> 10    18       10 0.00052
+#> # ℹ 1,940 more rows
+```
+
+**Ultimate table**
+
+``` r
+vbt[[2]]
+#> # A tibble: 103 × 2
+#>      age      qx
+#>    <dbl>   <dbl>
+#>  1    18 0.00066
+#>  2    19 0.00069
+#>  3    20 0.00071
+#>  4    21 0.00071
+#>  5    22 0.00069
+#>  6    23 0.00069
+#>  7    24 0.00068
+#>  8    25 0.00066
+#>  9    26 0.00057
+#> 10    27 0.00052
+#> # ℹ 93 more rows
+```
+
+## Disclosure
+
+The mortSOA package and its authors are not affiliated with the Society
+of Actuaries, which owns and operates `mort.soa.org`. Review the terms
+of use at <https://mort.soa.org/TermsOfUse.aspx> for more information.

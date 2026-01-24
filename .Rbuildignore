@@ -6,3 +6,4 @@
 ^CRAN-SUBMISSION$
 ^temp$
 ^data-raw$
+^README\.Rmd$

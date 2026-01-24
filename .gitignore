@@ -45,3 +45,4 @@ CRAN-SUBMISSION
 docs
 inst/doc
 temp/
+/.quarto/

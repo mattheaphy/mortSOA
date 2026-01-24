@@ -1,0 +1,94 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# mortSOA
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The Society of Actuaries provides an extensive online database called Mortality and Other Rate Tables (MORT) at <https://mort.soa.org/>. This database contains mortality, lapse, and valuation tables that cover a variety of product types and countries. Users of the database can download any tables in Excel, CSV, or XML formats. This package provides convenience functions that read XML formats from the database and return R objects.
+
+## Installation
+
+You can install the development version of mortSOA from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("mattheaphy/mortSOA")
+```
+
+## Inventory of tables
+
+The `mortSOA` package comes with a data frame that contains an inventory of available tables on `mort.soa.org`. This data set is not automatically refreshed and was last udpated on `r attr(mortSOA::table_inventory, "as_of")`.
+
+```{r example}
+library(mortSOA)
+library(tibble)
+
+table_inventory
+```
+
+The table inventory is provided as a quick reference to look up table identification numbers used by `mort.soa.org`. The `filter_inventory()` function is provided to assist with searching the inventory.
+
+Let's assume that we are interested in the 2012 IAM Basic table.
+
+```{r filter-inv}
+filter_inventory("2012", "IAM Basic")
+```
+
+## Reading tables
+
+The `read_mort_soa()` function is used to obtain data from `mort.soa.org`. This function requires a table identification number (`table_id`). Continuing with the prior example, let's look up table 2582, the 2012 IAM Basic Tables for female lives.
+
+```{r}
+iam_2012_f <- read_mort_soa(2582)
+iam_2012_f[[1]]
+```
+
+This function returns a list of any tables (converted to data frames) found under the given `table_id`. Since 2012 IAM basic is an ultimate table there is only one data frame in the list.
+
+The list includes additional metadata attributes that can be inspected using the `attr()` or `attributes()` functions.
+
+```{r}
+attributes(iam_2012_f)
+```
+
+## Select and ultimate tables
+
+Many tables in `mort.soa.org` have a select and ultimate structure. For these tables, the list returned by `read_mort_soa()` will include two elements. The first element is a two-dimensional table with mortality rates varying by issue age and policy duration. The second element is an ultimate mortality table varying by attained age only.
+
+Example using the 2015 VBT Non-Smoker ALB table (`table_id = 3269`)
+
+```{r}
+vbt <- read_mort_soa(3269)
+```
+
+**Select table**
+
+```{r}
+vbt[[1]]
+```
+
+**Ultimate table**
+
+```{r}
+vbt[[2]]
+```
+
+## Disclosure
+
+The mortSOA package and its authors are not affiliated with the Society of 
+Actuaries, which owns and operates `mort.soa.org`. Review the terms of use at 
+<https://mort.soa.org/TermsOfUse.aspx> for more information.

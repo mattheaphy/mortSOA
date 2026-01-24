@@ -1,3 +1,4 @@
 utils::globalVariables(c(
-  "table_inventory"
+  "table_inventory",
+  "name"
 ))
