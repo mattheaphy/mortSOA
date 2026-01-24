@@ -48,6 +48,9 @@
 #'   (tibbles).
 #' @export
 read_mort_soa <- function(table_id) {
+  if (!length(table_id) == 1L) {
+    cli::cli_abort("`table_id` must be a scalar")
+  }
   xml <- check_get_xml(table_id)
   content_meta <- extract_content_meta(xml)
   tbls <- xml2::xml_find_all(xml, "Table")
