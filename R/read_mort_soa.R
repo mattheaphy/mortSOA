@@ -139,7 +139,7 @@ xml_to_df <- function(xml) {
     xml2::xml_find_all(".//Y") |>
     xml2::xml_double()
 
-  dat <- do.call(tidyr::expand_grid, rev(axes)) |>
+  dat <- do.call(tidyr::expand_grid, axes) |>
     dplyr::as_tibble() |>
     dplyr::mutate(qx = qx)
 
