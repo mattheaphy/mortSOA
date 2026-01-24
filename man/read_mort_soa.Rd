@@ -28,7 +28,7 @@ returned. The list contains several attributes that can be queried using
 \itemize{
 \item \code{name} - Name of the table
 \item \code{table_id}
-\item \code{description} - A detailed description
+\item \code{description} - A detailed description of the table
 \item \code{usage} - Intended usage
 \item \code{layout} - Table layout
 \item \code{nation} - Nation of origin

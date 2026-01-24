@@ -12,7 +12,7 @@
 #'
 #' - `name` - Name of the table
 #' - `table_id`
-#' - `description` - A detailed description
+#' - `description` - A detailed description of the table
 #' - `usage` - Intended usage
 #' - `layout` - Table layout
 #' - `nation` - Nation of origin
