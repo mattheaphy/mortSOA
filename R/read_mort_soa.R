@@ -128,6 +128,7 @@ xml_to_df <- function(xml) {
       xml2::xml_attr("t") |>
       as.numeric()
   }
+  names(axes) <- tolower(names(axes))
 
   # All rates
   qx <- xtab |>
