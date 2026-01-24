@@ -1,5 +1,29 @@
 #' Read data from mort.soa.org
 #'
+#'
+#'
+#' @details
+#' This function first checks if the provided `table_id` is available on
+#' mort.soa.org. If not found, an error is returned.
+#'
+#' If a match is found, a list containing all tables underneath `table_id` is
+#' returned. The list contains several attributes that can be queried using
+#' `attr({list}, "{attribute})`. Available attributes include:
+#'
+#' - `name` - Name of the table
+#' - `table_id`
+#' - `description` - A detailed description
+#' - `usage` - Intended usage
+#' - `layout` - Table layout
+#' - `nation` - Nation of origin
+#' - `sub_descriptions` - A vector containing detailed descriptions for each
+#'   sub-table underneath `table_id`
+#'
+#' ## Table layout values
+#'
+#' - TODO
+#'
+#'
 #' @param table_id An identification number for a mortality table on
 #' <mort.soa.org>
 #'
@@ -12,7 +36,8 @@
 #'   read_mort_soa(2586)
 #' }
 #'
-#' @returns An R object
+#' @returns A list containing any tables associated with `table_id` with
+#'   metadata attributes described above.
 #' @export
 read_mort_soa <- function(table_id) {
   resp <- httr2::request("https://mort.soa.org") |>
@@ -33,18 +58,23 @@ read_mort_soa <- function(table_id) {
   content_meta <- xml |> xml2::xml_child(1)
   get_meta <- \(x, meta) {
     x |>
-      purrr::set_names() |>
+      # purrr::set_names() |>
       purrr::map(\(y) {
         xml2::xml_find_all(meta, paste0(".//", y)) |> xml2::xml_text()
       })
   }
+
   content_meta <- c(
-    "TableName",
-    "TableIdentity",
-    "TableDescription",
-    "ContentType"
+    name = "TableName",
+    table_id = "TableIdentity",
+    description = "TableDescription",
+    usage = "ContentType",
+    kw = "KeyWord"
   ) |>
     get_meta(meta = content_meta)
+  content_meta$layout <- content_meta$kw[[1]]
+  content_meta$nation <- content_meta$kw[[length(content_meta$kw)]]
+  content_meta$kw <- NULL
 
   xml_to_df <- function(xml) {
     # Table child item 1 = meta data
@@ -60,7 +90,6 @@ read_mort_soa <- function(table_id) {
       )
     }
 
-    # Child item 2 = table
     qx <- xml2::xml_child(xml, 2) |>
       xml2::xml_find_all(".//Y") |>
       xml2::xml_double()
@@ -69,14 +98,16 @@ read_mort_soa <- function(table_id) {
       dplyr::as_tibble() |>
       dplyr::mutate(qx = qx)
 
-    attr(dat, "table_meta") <- c("TableDescription", "Nation") |>
-      get_meta(meta = meta)
+    attr(dat, "description") <- get_meta("TableDescription", meta)[[1]]
 
     dat
   }
 
   tbls <- xml2::xml_find_all(xml, "Table")
   res <- purrr::map(tbls, xml_to_df)
-  attr(res, "content_meta") <- content_meta
+  content_meta$sub_descriptions <- purrr::map_chr(res, \(x) {
+    attr(x, "description")
+  })
+  attributes(res) <- content_meta
   res
 }

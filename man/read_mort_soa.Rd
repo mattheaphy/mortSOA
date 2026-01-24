@@ -11,10 +11,34 @@ read_mort_soa(table_id)
 <mort.soa.org>}
 }
 \value{
-An R object
+A list containing any tables associated with \code{table_id} with
+metadata attributes described above.
 }
 \description{
 Read data from mort.soa.org
+}
+\details{
+This function first checks if the provided \code{table_id} is available on
+mort.soa.org. If not found, an error is returned.
+
+If a match is found, a list containing all tables underneath \code{table_id} is
+returned. The list contains several attributes that can be queried using
+\verb{attr(\{list\}, "\{attribute\})}. Available attributes include:
+\itemize{
+\item \code{name} - Name of the table
+\item \code{table_id}
+\item \code{description} - A detailed description
+\item \code{usage} - Intended usage
+\item \code{layout} - Table layout
+\item \code{nation} - Nation of origin
+\item \code{sub_descriptions} - A vector containing detailed descriptions for each
+sub-table underneath \code{table_id}
+}
+\subsection{Table layout values}{
+\itemize{
+\item TODO
+}
+}
 }
 \examples{
 if (interactive()) {
