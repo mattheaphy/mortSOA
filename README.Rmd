@@ -23,6 +23,12 @@ The Society of Actuaries provides an extensive online database called Mortality 
 
 ## Installation
 
+The mortSOA package can be installed from CRAN with:
+
+``` r
+install.packages("actxps")
+```
+
 You can install the development version of mortSOA from [GitHub](https://github.com/) with:
 
 ``` r

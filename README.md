@@ -18,6 +18,12 @@ R objects.
 
 ## Installation
 
+The mortSOA package can be installed from CRAN with:
+
+``` r
+install.packages("actxps")
+```
+
 You can install the development version of mortSOA from
 [GitHub](https://github.com/) with:
 
