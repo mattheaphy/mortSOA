@@ -4,6 +4,8 @@
 # mortSOA
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/mattheaphy/mortSOA/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattheaphy/mortSOA/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The Society of Actuaries provides an extensive online database called
