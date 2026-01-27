@@ -46,3 +46,4 @@ docs
 inst/doc
 temp/
 /.quarto/
+cran-comments.md
