@@ -1,5 +1,5 @@
 Package: mortSOA
-Title: Obtain Data from SOA Mortality and Other Rate Tables (mort.soa.org)
+Title: Obtain Data from the Society of Actuaries Site mort.soa.org
 Version: 0.1.0
 Authors@R: 
     person("Matt", "Heaphy", email = "mattrmattrs@gmail.com", role = c("aut", "cre", "cph"))
@@ -24,7 +24,7 @@ Imports:
     tidyr,
     xml2
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1)
 LazyData: true
 URL: https://github.com/mattheaphy/mortSOA/,
     https://mattheaphy.github.io/mortSOA/
