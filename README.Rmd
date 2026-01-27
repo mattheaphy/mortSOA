@@ -38,7 +38,7 @@ pak::pak("mattheaphy/mortSOA")
 
 ## Inventory of tables
 
-The `mortSOA` package comes with a data frame that contains an inventory of available tables on `mort.soa.org`. This data set is not automatically refreshed and was last udpated on `r attr(mortSOA::table_inventory, "as_of")`.
+The `mortSOA` package comes with a data frame that contains an inventory of available tables on `mort.soa.org`. This data set is not automatically refreshed and was last updated on `r attr(mortSOA::table_inventory, "as_of")`.
 
 ```{r example}
 library(mortSOA)

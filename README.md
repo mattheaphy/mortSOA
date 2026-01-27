@@ -36,7 +36,7 @@ pak::pak("mattheaphy/mortSOA")
 
 The `mortSOA` package comes with a data frame that contains an inventory
 of available tables on `mort.soa.org`. This data set is not
-automatically refreshed and was last udpated on 2026-01-24.
+automatically refreshed and was last updated on 2026-01-24.
 
 ``` r
 library(mortSOA)
