@@ -2,7 +2,8 @@ Package: mortSOA
 Title: Obtain data from Mortality and Other Rate Tables (mort.soa.org)
 Version: 0.1.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+    person("Matt", "Heaphy", email = "mattrmattrs@gmail.com", role = c("aut", "cre"))
+Maintainer: Matt Heaphy <mattrmattrs@gmail.com>
 Description: The Society of Actuaries provides an extensive online database 
     called Mortality and Other Rate Tables (MORT) at https://mort.soa.org/. 
     This database contains mortality, lapse, and valuation tables that cover a 
@@ -24,3 +25,6 @@ Imports:
 Depends: 
     R (>= 3.5)
 LazyData: true
+URL: https://github.com/mattheaphy/mortSOA/,
+    https://mattheaphy.github.io/mortSOA/
+BugReports: https://github.com/mattheaphy/mortSOA/issues
