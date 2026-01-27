@@ -23,6 +23,9 @@
 #'   expressions passed to `...`. If "or", names must match at least one
 #'   expression passed to `...`.
 #'
+#' @references Society of Actuaries Mortality and Other Rate Tables
+#' <https://mort.soa.org>
+#'
 #' @examples
 #' filter_inventory("2012 IAM", "Female")
 #' # Same result using a regular expression
