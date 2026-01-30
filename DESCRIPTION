@@ -1,5 +1,5 @@
 Package: mortSOA
-Title: Obtain Data from the Society of Actuaries Site mort.soa.org
+Title: Obtain Data from the Society of Actuaries Mortality and Other Rate Tables Site
 Version: 0.1.0
 Authors@R: 
     person("Matt", "Heaphy", email = "mattrmattrs@gmail.com", role = c("aut", "cre", "cph"))
