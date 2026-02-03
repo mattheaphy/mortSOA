@@ -37,10 +37,8 @@
 #' <https://mort.soa.org>
 #'
 #' @examples
-#' if (interactive()) {
-#'   # Get table #2586: 2012 IAM Period Table – Female, ANB
-#'   read_mort_soa(2586)
-#' }
+#' # Get table #2586: 2012 IAM Period Table – Female, ANB
+#' \donttest{read_mort_soa(2586)}
 #'
 #' @seealso [filter_inventory()]
 #' @returns A list containing any tables associated with `table_id` plus the
