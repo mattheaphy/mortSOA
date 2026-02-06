@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Obtain Data from SOA Mortality and Other Rate Tables (mort.soa.org) • mortSOA</title>
+<title>Obtain Data from the Society of Actuaries Mortality and Other Rate Tables Site • mortSOA</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Obtain Data from SOA Mortality and Other Rate Tables (mort.soa.org)">
-<meta name="description" content='The Society of Actuaries (SOA) provides an extensive online database called "Mortality and Other Rate Tables" (MORT) at &lt;https://mort.soa.org/&gt;. This database contains mortality, lapse, and valuation tables that cover a variety of product types and nations. Users of the database can download any tables in Excel, CSV, or XML formats. This package provides convenience functions that read XML formats from the database and return R objects.'>
-<meta property="og:description" content='The Society of Actuaries (SOA) provides an extensive online database called "Mortality and Other Rate Tables" (MORT) at &lt;https://mort.soa.org/&gt;. This database contains mortality, lapse, and valuation tables that cover a variety of product types and nations. Users of the database can download any tables in Excel, CSV, or XML formats. This package provides convenience functions that read XML formats from the database and return R objects.'>
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Obtain Data from the Society of Actuaries Mortality and Other Rate Tables Site">
+<meta name="description" content="The Society of Actuaries (SOA) provides an extensive online database called Mortality and Other Rate Tables (MORT) at &lt;https://mort.soa.org/&gt;. This database contains mortality, lapse, and valuation tables that cover a variety of product types and nations. Users of the database can download any tables in Excel, CSV, or XML formats. This package provides convenience functions that read XML formats from the database and return R objects.">
+<meta property="og:description" content="The Society of Actuaries (SOA) provides an extensive online database called Mortality and Other Rate Tables (MORT) at &lt;https://mort.soa.org/&gt;. This database contains mortality, lapse, and valuation tables that cover a variety of product types and nations. Users of the database can download any tables in Excel, CSV, or XML formats. This package provides convenience functions that read XML formats from the database and return R objects.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -51,20 +51,23 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The Society of Actuaries provides an extensive online database called Mortality and Other Rate Tables (MORT) at <a href="https://mort.soa.org/" class="external-link uri">https://mort.soa.org/</a>. This database contains mortality, lapse, and valuation tables that cover a variety of product types and countries. Users of the database can download any tables in Excel, CSV, or XML formats. This package provides convenience functions that read XML formats from the database and return R objects.</p>
+<p>The Society of Actuaries (SOA) provides an extensive online database called ‘Mortality and Other Rate Tables’ (‘MORT’) at <a href="https://mort.soa.org/" class="external-link uri">https://mort.soa.org/</a>. This database contains mortality, lapse, and valuation tables that cover a variety of product types and nations. Users of the database can download any tables in ‘Excel’, ‘CSV’, or ‘XML’ formats. This package provides convenience functions that read ‘XML’ formats from the database and return R objects.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of mortSOA from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>The mortSOA package can be installed from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mortSOA"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of mortSOA from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mattheaphy/mortSOA"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="inventory-of-tables">Inventory of tables<a class="anchor" aria-label="anchor" href="#inventory-of-tables"></a>
 </h2>
-<p>The <code>mortSOA</code> package comes with a data frame that contains an inventory of available tables on <code>mort.soa.org</code>. This data set is not automatically refreshed and was last udpated on 2026-01-24.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>The <code>mortSOA</code> package comes with a data frame that contains an inventory of available tables on <code>mort.soa.org</code>. This data set is not automatically refreshed and was last updated on 2026-01-24.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mattheaphy/mortSOA/" class="external-link">mortSOA</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span>
 <span></span>
@@ -85,7 +88,7 @@
 <span><span class="co">#&gt; # ℹ 3,024 more rows</span></span></code></pre></div>
 <p>The table inventory is provided as a quick reference to look up table identification numbers used by <code>mort.soa.org</code>. The <code><a href="reference/filter_inventory.html">filter_inventory()</a></code> function is provided to assist with searching the inventory.</p>
 <p>Let’s assume that we are interested in the 2012 IAM Basic table.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/filter_inventory.html">filter_inventory</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"IAM Basic"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span><span class="co">#&gt;   table_id name                               description    layout usage nation</span></span>
@@ -97,7 +100,7 @@
 <h2 id="reading-tables">Reading tables<a class="anchor" aria-label="anchor" href="#reading-tables"></a>
 </h2>
 <p>The <code><a href="reference/read_mort_soa.html">read_mort_soa()</a></code> function is used to obtain data from <code>mort.soa.org</code>. This function requires a table identification number (<code>table_id</code>). Continuing with the prior example, let’s look up table 2582, the 2012 IAM Basic Tables for female lives.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iam_2012_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_mort_soa.html">read_mort_soa</a></span><span class="op">(</span><span class="fl">2582</span><span class="op">)</span></span>
 <span><span class="va">iam_2012_f</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; # A tibble: 121 × 2</span></span>
@@ -116,7 +119,7 @@
 <span><span class="co">#&gt; # ℹ 111 more rows</span></span></code></pre></div>
 <p>This function returns a list of any tables (converted to data frames) found under the given <code>table_id</code>. Since 2012 IAM basic is an ultimate table there is only one data frame in the list.</p>
 <p>The list includes additional metadata attributes that can be inspected using the <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr()</a></code> or <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes()</a></code> functions.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">iam_2012_f</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $name</span></span>
 <span><span class="co">#&gt; [1] "2012 IAM Basic Table – Female, ANB"</span></span>
@@ -144,10 +147,10 @@
 </h2>
 <p>Many tables in <code>mort.soa.org</code> have a select and ultimate structure. For these tables, the list returned by <code><a href="reference/read_mort_soa.html">read_mort_soa()</a></code> will include two elements. The first element is a two-dimensional table with mortality rates varying by issue age and policy duration. The second element is an ultimate mortality table varying by attained age only.</p>
 <p>Example using the 2015 VBT Non-Smoker ALB table (<code>table_id = 3269</code>)</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vbt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_mort_soa.html">read_mort_soa</a></span><span class="op">(</span><span class="fl">3269</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Select table</strong></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vbt</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; # A tibble: 1,950 × 3</span></span>
 <span><span class="co">#&gt;      age duration      qx</span></span>
@@ -164,7 +167,7 @@
 <span><span class="co">#&gt; 10    18       10 0.00052</span></span>
 <span><span class="co">#&gt; # ℹ 1,940 more rows</span></span></code></pre></div>
 <p><strong>Ultimate table</strong></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vbt</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; # A tibble: 103 × 2</span></span>
 <span><span class="co">#&gt;      age      qx</span></span>
@@ -190,6 +193,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=mortSOA" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/mattheaphy/mortSOA/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/mattheaphy/mortSOA/issues" class="external-link">Report a bug</a></li>
 </ul>

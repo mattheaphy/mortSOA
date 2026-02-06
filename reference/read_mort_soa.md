@@ -54,7 +54,7 @@ structure.
   contains two dimensions for Age and Duration. The second table
   contains a single dimension for Age.
 
-For convenience, any two-dimensional tables are pivotted longer into a
+For convenience, any two-dimensional tables are pivoted longer into a
 "tidy" format with 3 columns: Age, Duration, and the mortality (or
 other) rate.
 
@@ -70,8 +70,36 @@ Society of Actuaries Mortality and Other Rate Tables
 ## Examples
 
 ``` r
-if (interactive()) {
-  # Get table #2586: 2012 IAM Period Table – Female, ANB
-  read_mort_soa(2586)
-}
+# Get table #2586: 2012 IAM Period Table – Female, ANB
+read_mort_soa(2586)
+#> [[1]]
+#> # A tibble: 121 × 2
+#>      age       qx
+#>    <dbl>    <dbl>
+#>  1     0 0.00162 
+#>  2     1 0.000405
+#>  3     2 0.000259
+#>  4     3 0.000179
+#>  5     4 0.000137
+#>  6     5 0.000125
+#>  7     6 0.000117
+#>  8     7 0.00011 
+#>  9     8 0.000095
+#> 10     9 0.000088
+#> # ℹ 111 more rows
+#> 
+#> attr(,"name")
+#> [1] "2012 IAM Period Table – Female, ANB"
+#> attr(,"table_id")
+#> [1] "2586"
+#> attr(,"description")
+#> [1] "2012 Individual Annuity Mortality Period Table – Female. Basis: Age Nearest Birthday. Minimum Age: 0. Maximum Age: 120"
+#> attr(,"usage")
+#> [1] "Annuitant Mortality"
+#> attr(,"layout")
+#> [1] "Aggregate"
+#> attr(,"nation")
+#> [1] "United States of America"
+#> attr(,"sub_descriptions")
+#> [1] "2012 Individual Annuity Mortality Period Table – Female. Basis: Age Nearest Birthday. Minimum Age: 0. Maximum Age: 120"
 ```

@@ -45,6 +45,11 @@ are accepted.
 Multiple calls to `filter_inventory()` can be chained together using the
 pipe operator.
 
+## References
+
+Society of Actuaries Mortality and Other Rate Tables
+<https://mort.soa.org>
+
 ## Examples
 
 ``` r
