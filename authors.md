@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/mattheaphy/mortSOA/blob/v0.1.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/mattheaphy/mortSOA/blob/main/DESCRIPTION)
 
 Heaphy M (2026). *mortSOA: Obtain Data from the Society of Actuaries
 'Mortality and Other Rate Tables' Site*. R package version 0.1.0,
