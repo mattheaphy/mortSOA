@@ -8,15 +8,21 @@
 [![R-CMD-check](https://github.com/mattheaphy/mortSOA/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattheaphy/mortSOA/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The Society of Actuaries provides an extensive online database called
-Mortality and Other Rate Tables (MORT) at <https://mort.soa.org/>. This
-database contains mortality, lapse, and valuation tables that cover a
-variety of product types and countries. Users of the database can
-download any tables in Excel, CSV, or XML formats. This package provides
-convenience functions that read XML formats from the database and return
-R objects.
+The Society of Actuaries (SOA) provides an extensive online database
+called ‘Mortality and Other Rate Tables’ (‘MORT’) at
+<https://mort.soa.org/>. This database contains mortality, lapse, and
+valuation tables that cover a variety of product types and nations.
+Users of the database can download any tables in ‘Excel’, ‘CSV’, or
+‘XML’ formats. This package provides convenience functions that read
+‘XML’ formats from the database and return R objects.
 
 ## Installation
+
+The mortSOA package can be installed from CRAN with:
+
+``` r
+install.packages("mortSOA")
+```
 
 You can install the development version of mortSOA from
 [GitHub](https://github.com/) with:
@@ -30,7 +36,7 @@ pak::pak("mattheaphy/mortSOA")
 
 The `mortSOA` package comes with a data frame that contains an inventory
 of available tables on `mort.soa.org`. This data set is not
-automatically refreshed and was last udpated on 2026-01-24.
+automatically refreshed and was last updated on 2026-01-24.
 
 ``` r
 library(mortSOA)

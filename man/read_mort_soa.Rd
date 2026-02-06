@@ -45,14 +45,12 @@ two dimensions for Age and Duration. The second table contains a single
 dimension for Age.
 }
 
-For convenience, any two-dimensional tables are pivotted longer into a "tidy"
+For convenience, any two-dimensional tables are pivoted longer into a "tidy"
 format with 3 columns: Age, Duration, and the mortality (or other) rate.
 }
 \examples{
-if (interactive()) {
-  # Get table #2586: 2012 IAM Period Table – Female, ANB
-  read_mort_soa(2586)
-}
+# Get table #2586: 2012 IAM Period Table – Female, ANB
+\donttest{read_mort_soa(2586)}
 
 }
 \references{

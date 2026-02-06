@@ -44,3 +44,7 @@ filter_inventory("Pri-2012", "Retiree") |>
   filter_inventory("Blue", "White", type = "or")
 
 }
+\references{
+Society of Actuaries Mortality and Other Rate Tables
+\url{https://mort.soa.org}
+}
